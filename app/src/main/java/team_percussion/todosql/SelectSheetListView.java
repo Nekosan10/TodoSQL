@@ -50,7 +50,7 @@ public class SelectSheetListView extends AppCompatActivity {
         myBaseAdapter = new MyBaseAdapter(this, items);
 
         // ListViewの結び付け
-        mListView03 = (GridView) findViewById(R.id.listView03);
+        mListView03 = (GridView) findViewById(R.id.GridView03);
 
         loadMyList();   // DBを読み込む＆更新する処理
 
