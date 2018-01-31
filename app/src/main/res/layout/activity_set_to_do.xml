@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="team_percussion.todosql.SetToDo">
+
+    <LinearLayout
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.993"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.904"
+        tools:ignore="MissingConstraints">
+
+
+
+        <Button
+            android:id="@+id/button01Regist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout01Primary"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:text="@string/button01_regist"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.498" />
+
+        <Button
+            android:id="@+id/button01Show"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:text="@string/button01_show"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+        <Button
+            android:id="@+id/button01AllDelete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:text="@string/button01_alldelete"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="302dp" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listView01"
+        android:layout_width="300dp"
+        android:layout_height="180dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.992"
+        tools:ignore="MissingConstraints" />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout01Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.16"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/text01Name"
+            android:layout_width="16dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="@string/text01_name"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/text01Kome01"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:text="@string/text01_kome"
+            android:textColor="#FF0000"
+            android:textSize="14sp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="490dp" />
+
+        <!-- ellipsize：文字が行に収まりきらない末尾を「...」表示 -->
+        <!-- inputType：表示するキーボードを文字に指定 -->
+        <EditText
+            android:id="@+id/editText01Name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ellipsize="end"
+            android:hint="@string/text01_hinttext"
+            android:inputType="text"
+            android:lines="1"
+            android:maxLength="12"
+            android:maxLines="1"
+            android:minLines="1"
+            android:singleLine="true"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- 画像 -->
+    <LinearLayout
+        android:id="@+id/linearLayout01Picture"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/linearLayout01Name"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.322"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/text01Picture"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="@string/text01_picture"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/imageView01Picture"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:cropToPadding="true"
+            app:srcCompat="@android:color/transparent" android:contentDescription="@string/todo" />
+
+        <Button
+            android:id="@+id/button01Picture"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="@string/button01_picture" />
+
+    </LinearLayout>
+
+    <!-- 優先度 -->
+    <LinearLayout
+        android:id="@+id/linearLayout01Primary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/linearLayout01Picture"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/text01Primary"
+            android:layout_width="16dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="@string/text01_primary"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/text01Kome03"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:text="@string/text01_kome"
+            android:textColor="#FF0000"
+            android:textSize="14sp" />
+
+        <!-- inputType：表示するキーボードを数値に指定 -->
+        <EditText
+            android:id="@+id/editText01Primary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:ellipsize="end"
+            android:hint="@string/text01_hintnumber"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLength="24"
+            android:maxLines="1"
+            android:minLines="1"
+            android:singleLine="true"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>
