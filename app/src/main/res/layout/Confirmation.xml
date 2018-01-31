@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="match_parent"
+        android:layout_height="116dp"
+        android:layout_marginTop="24dp"
+        android:background="#FFFFFF"
+        android:src="@drawable/change"
+        android:transitionName="image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="252dp"
+        android:layout_height="108dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="172dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/dekita"
+        android:layout_marginLeft="56dp" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="251dp"
+        android:layout_height="114dp"
+        android:layout_marginStart="308dp"
+        android:layout_marginTop="172dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/dame"
+        android:layout_marginLeft="308dp" />
+
+</android.support.constraint.ConstraintLayout>
