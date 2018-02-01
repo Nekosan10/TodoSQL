@@ -6,6 +6,7 @@ package team_percussion.todosql;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -31,17 +32,20 @@ public class SelectSheetListView extends AppCompatActivity {
     private List<MyListItem> items;
     private GridView mListView03;
     protected MyListItem myListItem;
+    private Intent intent;
 
     // 参照するDBのカラム：優先度,やること,リソースIDの全部なのでnullを指定
     private String[] columns = null;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+        protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_sheet_listview);
 
         // DBAdapterのコンストラクタ呼び出し
         dbAdapter = new DBAdapter(this);
+
+
 
         // itemsのArrayList生成
         items = new ArrayList<>();
@@ -53,6 +57,20 @@ public class SelectSheetListView extends AppCompatActivity {
         mListView03 = (GridView) findViewById(R.id.GridView03);
 
         loadMyList();   // DBを読み込む＆更新する処理
+
+
+        mListView03.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent,View view,final int position,long id) {
+
+                intent = new Intent(SelectSheetListView.this, Confirmation.class);
+                int requestCode = 1002;
+                myListItem = items.get(position);
+                int listId = myListItem.getPrimary();
+                intent.putExtra("ToDoPrimary",listId );
+                startActivityForResult(intent, requestCode);
+            }
+        });
 
         // 行を長押しした時の処理
         mListView03.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -107,7 +125,7 @@ public class SelectSheetListView extends AppCompatActivity {
         dbAdapter.openDB();     // DBの読み込み(読み書きの方)
 
         // DBのデータを取得
-        Cursor c = dbAdapter.getDB(columns);
+        Cursor c = dbAdapter.GetDoTable(columns);
 
         if (c.moveToFirst()) {
             do {

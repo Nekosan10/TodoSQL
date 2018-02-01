@@ -14,6 +14,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBAdapter{
     private final static String DB_NAME = "todo.db";
     private final static String DB_TABLE = "todoSheet";
+    private final static String NEWDB_TABLE ="donotSheet";
     private final static int DB_VERSION = 1;
 
     //todo やること
@@ -37,7 +38,7 @@ public class DBAdapter{
         db = dbHelper.getWritableDatabase();
         return this;
     }
-    public DBAdapter readCB(){
+    public DBAdapter readDB(){
         db =dbHelper.getReadableDatabase();
         return this;
     }
@@ -99,6 +100,46 @@ public class DBAdapter{
         }
     }
 
+    //ＴＯＤＯテーブルの複製
+    public void CreateTable(){
+        db.execSQL("CREATE TABLE " + NEWDB_TABLE + " AS SELECT * FROM " + DB_TABLE + " ;");
+    }
+    //テーブル取得
+    public Cursor GetDoTable(String[] columns){
+        return db.query(NEWDB_TABLE,columns,null,null,null,null,null);
+    }
+    //DB検索取得
+    public Cursor searchdoTable(String[] columns,String column,String[] name){
+        return db.query(NEWDB_TABLE,columns,column+" like ?",name,null,null,null);
+    }
+
+    //DB全削除
+    public void allDeletedoTable(){
+        db.beginTransaction();
+        try{
+            db.delete(NEWDB_TABLE,null,null);
+            db.setTransactionSuccessful();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            db.endTransaction();
+        }
+    }
+
+    //DB単一削除
+    public void selectDeletedoTable(String position){
+        db.beginTransaction();
+        try{
+            db.delete(NEWDB_TABLE,COL_PRIMARY+"=?",new String[]{position});
+            db.setTransactionSuccessful();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            db.endTransaction();
+        }
+    }
+
+
     //DBHelper
     private static class DBHelper extends SQLiteOpenHelper {
         //コンストラクタ
@@ -116,6 +157,8 @@ public class DBAdapter{
                    + ");";
             db.execSQL(createTbl);
         }
+
+
         //DB更新処理
         @Override
         public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion){
