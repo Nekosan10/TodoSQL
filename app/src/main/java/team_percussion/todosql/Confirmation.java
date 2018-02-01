@@ -27,13 +27,14 @@ public class Confirmation extends AppCompatActivity {
     // 参照するDBのカラム：優先度,やること,リソースIDの全部なのでnullを指定
     private String[] List = null;
     private Intent intent;
+    private int listId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.confirmation);
-
-
+        intent = getIntent();
+        listId = intent.getIntExtra("ToDoPrimary", 0);
         // itemsのArrayList生成
         DoList = new ArrayList<>();
 
@@ -51,7 +52,6 @@ public class Confirmation extends AppCompatActivity {
                 // クリック時の処理
                 dbAdapter.openDB();     // DBの読み込み(読み書きの方)
                 dbAdapter.selectDelete(String.valueOf(listId));     // DBから取得したIDが入っているデータを削除する
-                Log.d("Long click : ", String.valueOf(listId));
                 dbAdapter.closeDB();    // DBを閉じる
                 loadMyList();
                 setResult(RESULT_OK, intent);

@@ -3,6 +3,7 @@
  */
 package team_percussion.todosql;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -92,7 +93,7 @@ public class SelectSheetListView extends AppCompatActivity {
                         int listId = myListItem.getPrimary();
 
                         dbAdapter.openDB();     // DBの読み込み(読み書きの方)
-                        dbAdapter.selectDelete(String.valueOf(listId));     // DBから取得したIDが入っているデータを削除する
+                        dbAdapter.selectDeletedoTable(String.valueOf(listId));     // DBから取得したIDが入っているデータを削除する
                         Log.d("Long click : ", String.valueOf(listId));
                         dbAdapter.closeDB();    // DBを閉じる
                         loadMyList();
@@ -234,6 +235,15 @@ public class SelectSheetListView extends AppCompatActivity {
             holder.text05Picture.setImageResource(myListItem.getPictureid());
             return view;
 
+        }
+    }
+    //画像選択から戻ってきたとき
+    public void onActivityResult(int requestCode,int resultCode,Intent intent) {
+        if (requestCode == 1002) {
+            // 返却結果ステータスとの比較
+            if (resultCode == Activity.RESULT_OK) {
+                loadMyList();
+            }
         }
     }
 }

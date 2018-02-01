@@ -1,7 +1,7 @@
 <resources>
     <string name="action_settings">Settings</string>
     <!--title-->
-    <string name="app_name">m9(^Д^)ﾌﾟｷﾞｬｰ</string>
+    <string name="app_name">進捗</string>
     <string name="name_select_todo">やること一覧画面</string>
     <string name="name_select_listview">ListView表示画面</string>
     <string name="name_select_tabel">TableLayout表示画面</string>

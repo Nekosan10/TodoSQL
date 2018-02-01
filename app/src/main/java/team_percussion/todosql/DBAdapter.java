@@ -109,7 +109,7 @@ public class DBAdapter{
         return db.query(NEWDB_TABLE,columns,null,null,null,null,null);
     }
     //DB検索取得
-    public Cursor searchdoTable(String[] columns,String column,String[] name){
+    public Cursor selectDeletedoTable(String[] columns,String column,String[] name){
         return db.query(NEWDB_TABLE,columns,column+" like ?",name,null,null,null);
     }
 

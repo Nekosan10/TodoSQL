@@ -108,7 +108,10 @@ public class SetToDo extends AppCompatActivity {
         mButton01Show.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO  別テーブルの処理
+                /*dbAdapter.openDB();
                 dbAdapter.CreateTable();
+                dbAdapter.closeDB();*/
                 intent = new Intent(SetToDo.this, SelectSheetListView.class);
                     startActivity(intent);      // 各画面へ遷移
              }
