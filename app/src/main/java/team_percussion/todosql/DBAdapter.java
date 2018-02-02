@@ -16,6 +16,8 @@ public class DBAdapter{
     private final static String DB_TABLE = "todoSheet";
     private final static String NEWDB_TABLE ="donotSheet";
     private final static int DB_VERSION = 1;
+    private final static int NEWDB_VERSION = 1;
+
 
     //todo やること
     public final static String COL_NAME ="name"; //やること名
@@ -100,10 +102,6 @@ public class DBAdapter{
         }
     }
 
-    //ＴＯＤＯテーブルの複製
-    public void CreateTable(){
-        db.execSQL("CREATE TABLE " + NEWDB_TABLE + " AS SELECT * FROM " + DB_TABLE + " ;");
-    }
     //テーブル取得
     public Cursor GetDoTable(String[] columns){
         return db.query(NEWDB_TABLE,columns,null,null,null,null,null);
@@ -156,12 +154,14 @@ public class DBAdapter{
                    + COL_PICTURE + " INTEGER NOT NULL"
                    + ");";
             db.execSQL(createTbl);
+            db.execSQL("CREATE TABLE " + NEWDB_TABLE + " AS SELECT * FROM " + DB_TABLE + " ;");
         }
 
 
         //DB更新処理
         @Override
         public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion){
+            db.execSQL("DROP TABLE IF EXISTS " + DB_TABLE);
             db.execSQL("DROP TABLE IF EXISTS " + DB_TABLE);
              onCreate(db);
         }
