@@ -108,10 +108,9 @@ public class SetToDo extends AppCompatActivity {
         mButton01Show.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO  別テーブルの処理
-                /*dbAdapter.openDB();
-                dbAdapter.CreateTable();
-                dbAdapter.closeDB();*/
+                dbAdapter.openDB();
+                dbAdapter.saveDoTable();
+                dbAdapter.closeDB();
                 intent = new Intent(SetToDo.this, SelectSheetListView.class);
                     startActivity(intent);      // 各画面へ遷移
              }
@@ -149,19 +148,19 @@ public class SetToDo extends AppCompatActivity {
      */
     private void findViews() {
 
-        mEditText01Name = (EditText) findViewById(R.id.editText01Name);   // やること名
-        mImageView01Picture = (ImageView) findViewById(R.id.imageView01Picture);     // 画像
-        mEditText01Primary = (EditText) findViewById(R.id.editText01Primary);     // 優先度
+        mEditText01Name = findViewById(R.id.editText01Name);   // やること名
+        mImageView01Picture = findViewById(R.id.imageView01Picture);     // 画像
+        mEditText01Primary = findViewById(R.id.editText01Primary);     // 優先度
 
-        mText01Kome01 = (TextView) findViewById(R.id.text01Kome01);             // やること名の※印
-        mText01Kome03 = (TextView) findViewById(R.id.text01Kome03);             // 優先度の※印
+        mText01Kome01 = findViewById(R.id.text01Kome01);             // やること名の※印
+        mText01Kome03 = findViewById(R.id.text01Kome03);             // 優先度の※印
 
-        mListView01 = (ListView)findViewById(R.id.listView01);
-        mButton01AllDelete = (Button) findViewById(R.id.button01AllDelete);
+        mListView01 = findViewById(R.id.listView01);
+        mButton01AllDelete = findViewById(R.id.button01AllDelete);
 
-        mButton01Picture = (Button)findViewById(R.id.button01Picture);
-        mButton01Regist = (Button) findViewById(R.id.button01Regist);           // 登録ボタン
-        mButton01Show = (Button) findViewById(R.id.button01Show);               // 表示ボタン
+        mButton01Picture = findViewById(R.id.button01Picture);
+        mButton01Regist = findViewById(R.id.button01Regist);           // 登録ボタン
+        mButton01Show = findViewById(R.id.button01Show);               // 表示ボタン
     }
 
     /**

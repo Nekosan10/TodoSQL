@@ -29,12 +29,7 @@
     <string name="text05_hintnumber2">やること名</string>
     <!-- ここまで -->
 
-    <!-- select_sheet_listview 03 -->
-    <string name="text03_title_detail">BaseAdapterを使いListViewをカスタムしてリスト表示します。</string>
-
-    <!-- select_sheet_table 04 -->
-    <string name="text04_title_detail">SearchViewを使って品名を検索し、DBから取得したデータをTableRowに加えていく表示の仕方です。</string>
-    <string name="text04_hinttext">やること名を入力して下さい。</string>
-    <string name="button04_search">検索</string>
-    <string name="todo">TODO</string>
+    <!-- Todo個別表示 -->
+    <string name="text04_title_name">やること表示</string>
+    <string name="todo">画像</string>
 </resources>

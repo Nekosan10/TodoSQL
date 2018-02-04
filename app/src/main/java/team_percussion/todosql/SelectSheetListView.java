@@ -55,7 +55,7 @@ public class SelectSheetListView extends AppCompatActivity {
         myBaseAdapter = new MyBaseAdapter(this, items);
 
         // ListViewの結び付け
-        mListView03 = (GridView) findViewById(R.id.GridView03);
+        mListView03 = findViewById(R.id.GridView03);
 
         loadMyList();   // DBを読み込む＆更新する処理
 
@@ -124,6 +124,7 @@ public class SelectSheetListView extends AppCompatActivity {
         items.clear();
 
         dbAdapter.openDB();     // DBの読み込み(読み書きの方)
+
 
         // DBのデータを取得
         Cursor c = dbAdapter.GetDoTable(columns);
@@ -211,8 +212,8 @@ public class SelectSheetListView extends AppCompatActivity {
 
 
                 //TextView text05Primary = (TextView) view.findViewById(R.id.text05Primary);        // 優先度のTextView
-                TextView text05Name = (TextView) view.findViewById(R.id.text05Name);      // やること名のTextView
-                ImageView image05Picture = (ImageView) view.findViewById(R.id.text05TitlePicture);        // 画像のTextView
+                TextView text05Name = view.findViewById(R.id.text05Name);      // やること名のTextView
+                ImageView image05Picture = view.findViewById(R.id.text05TitlePicture);        // 画像のTextView
 
                 // holderにviewを持たせておく
                 holder = new ViewHolder();

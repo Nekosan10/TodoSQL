@@ -29,35 +29,42 @@ public class Confirmation extends AppCompatActivity {
     private Intent intent;
     private int listId;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.confirmation);
+        dbAdapter = new DBAdapter(this);
         intent = getIntent();
-        listId = intent.getIntExtra("ToDoPrimary", 0);
+        listId = intent.getIntExtra("ToDoPrimary",0);
         // itemsのArrayList生成
         DoList = new ArrayList<>();
-
-
-
-
-
+        loadMyList();
 
         // ListViewの結び付け
-        TodoImage = (ImageView) findViewById(R.id.imageVieTodo);
-        Ok = (ImageView)findViewById(R.id.imageViewOk);
+        TodoImage = findViewById(R.id.imageVieTodo);
+        Ok = findViewById(R.id.imageViewOk);
+        No = findViewById(R.id.imageViewDoNo);
+
+        myListItem = DoList.get(listId);
+        int picId = myListItem.getPrimary();
+        TodoImage.setImageResource(picId);
 
         Ok.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // クリック時の処理
                 dbAdapter.openDB();     // DBの読み込み(読み書きの方)
-                dbAdapter.selectDelete(String.valueOf(listId));     // DBから取得したIDが入っているデータを削除する
+                dbAdapter.selectDeletedoTable(String.valueOf(listId));     // DBから取得したIDが入っているデータを削除する
                 dbAdapter.closeDB();    // DBを閉じる
                 loadMyList();
                 setResult(RESULT_OK, intent);
                 finish();
             }
         });
+
+    }
+    private void SetImage(){
+
     }
     private void loadMyList() {
 
@@ -67,7 +74,8 @@ public class Confirmation extends AppCompatActivity {
         dbAdapter.openDB();     // DBの読み込み(読み書きの方)
 
         // DBのデータを取得
-        Cursor c = dbAdapter.getDB(List);
+        String[] name={Integer.toString(listId)};
+        Cursor c = dbAdapter.selectgetDoTable(null,"_primary",name);
 
         if (c.moveToFirst()) {
             do {
@@ -80,16 +88,15 @@ public class Confirmation extends AppCompatActivity {
 
                 Log.d("取得したCursor(優先度):", String.valueOf(c.getInt(0)));
                 Log.d("取得したCursor(やること名):", c.getString(1));
-                Log.d("取得したCursor(画像ID):", c.getString(2));
+                Log.d("取得したCursor(画像ID):", String.valueOf(c.getInt(2)));
 
 
-                DoList.add(myListItem);          // 取得した要素をitemsに追加
+                DoList.add(myListItem);          // 取得した要素をDoListに追加
 
             } while (c.moveToNext());
         }
         c.close();
-        dbAdapter.closeDB();                    // DBを閉じる
-
+        dbAdapter.closeDB();             // DBを閉じる
     }
 
 

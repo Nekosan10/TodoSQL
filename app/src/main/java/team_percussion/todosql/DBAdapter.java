@@ -14,9 +14,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBAdapter{
     private final static String DB_NAME = "todo.db";
     private final static String DB_TABLE = "todoSheet";
-    private final static String NEWDB_TABLE ="donotSheet";
+    private final static String NEWDB_TABLE ="doSheet";
     private final static int DB_VERSION = 1;
-    private final static int NEWDB_VERSION = 1;
 
 
     //todo やること
@@ -33,6 +32,7 @@ public class DBAdapter{
         this.context = context;
         dbHelper = new DBHelper(this.context);
     }
+
 
 
     //DB_Read&Write
@@ -107,7 +107,7 @@ public class DBAdapter{
         return db.query(NEWDB_TABLE,columns,null,null,null,null,null);
     }
     //DB検索取得
-    public Cursor selectDeletedoTable(String[] columns,String column,String[] name){
+    public Cursor selectgetDoTable(String[] columns, String column, String[] name){
         return db.query(NEWDB_TABLE,columns,column+" like ?",name,null,null,null);
     }
 
@@ -137,6 +137,16 @@ public class DBAdapter{
         }
     }
 
+    public void saveDoTable(){
+        //"INSERT INTO " + NEWDB_TABLE + " ("+ COL_PRIMARY+" , "+COL_NAME+" , "+COL_PICTURE+")
+        db.rawQuery("SELECT "
+                +NEWDB_TABLE+"."+COL_PRIMARY+","
+                +NEWDB_TABLE+"."+COL_NAME+","
+                +NEWDB_TABLE+"."+COL_PICTURE
+                +" FROM "+DB_TABLE+" LEFT OUTER JOIN "+NEWDB_TABLE + " ON "
+                +NEWDB_TABLE+"."+COL_PRIMARY +"="+DB_TABLE+"."+COL_PRIMARY+";",null);
+    }
+
 
     //DBHelper
     private static class DBHelper extends SQLiteOpenHelper {
@@ -154,7 +164,13 @@ public class DBAdapter{
                    + COL_PICTURE + " INTEGER NOT NULL"
                    + ");";
             db.execSQL(createTbl);
-            db.execSQL("CREATE TABLE " + NEWDB_TABLE + " AS SELECT * FROM " + DB_TABLE + " ;");
+            String create = "CREATE TABLE " + NEWDB_TABLE +  " ("
+                    + COL_PRIMARY + " INTEGER PRIMARY AUTOINCREMENT,"
+                    + COL_NAME + " TEXT NOT NULL,"
+                    + COL_PICTURE + " INTEGER NOT NULL"
+                    + ");";
+            db.execSQL(create);
+
         }
 
 
@@ -162,8 +178,9 @@ public class DBAdapter{
         @Override
         public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion){
             db.execSQL("DROP TABLE IF EXISTS " + DB_TABLE);
-            db.execSQL("DROP TABLE IF EXISTS " + DB_TABLE);
+            db.execSQL("DROP TABLE IF EXISTS " + NEWDB_TABLE);
              onCreate(db);
         }
+
     }
 }

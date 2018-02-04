@@ -23,6 +23,9 @@
             android:name=".SelectSheetListView"
             android:label="@string/name_select_listview"
             android:screenOrientation="landscape"/>
+        <activity android:name=".Confirmation"
+            android:label="@string/text04_title_name"
+            android:screenOrientation="landscape"/>
         <activity android:name=".ResourceAllView"
                     android:screenOrientation="landscape" >
             <intent-filter>
