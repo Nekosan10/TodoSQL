@@ -12,13 +12,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 
 public class DBAdapter{
+    //DB情報
     private final static String DB_NAME = "todo.db";
     private final static String DB_TABLE = "todoSheet";
     private final static String NEWDB_TABLE ="doSheet";
     private final static int DB_VERSION = 1;
 
 
-    //todo やること
+    //todo やること項目名
     public final static String COL_NAME ="name"; //やること名
     public final static String COL_PRIMARY = "_primary"; //優先度
     public final static String COL_PICTURE = "picture"; //画像
