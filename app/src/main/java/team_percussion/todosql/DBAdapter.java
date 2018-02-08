@@ -16,7 +16,7 @@ public class DBAdapter{
     private final static String DB_NAME = "todo.db";
     private final static String DB_TABLE = "todoSheet";
     private final static String NEWDB_TABLE ="doSheet";
-    private final static int DB_VERSION = 1;
+    private final static int DB_VERSION = 2;
 
 
     //todo やること項目名
@@ -108,8 +108,8 @@ public class DBAdapter{
         return db.query(NEWDB_TABLE,columns,null,null,null,null,null);
     }
     //DB検索取得
-    public Cursor selectgetDoTable(String[] columns, String column, String[] name){
-        return db.query(NEWDB_TABLE,columns,column+" like ?",name,null,null,null);
+    public Cursor selectgetDoTable(String[] columns){
+        return db.query(NEWDB_TABLE,new String[]{COL_PRIMARY,COL_NAME,COL_PICTURE},COL_PRIMARY+"=?",columns,null,null,null);
     }
 
     //DB全削除
@@ -140,12 +140,8 @@ public class DBAdapter{
 
     public void saveDoTable(){
         //"INSERT INTO " + NEWDB_TABLE + " ("+ COL_PRIMARY+" , "+COL_NAME+" , "+COL_PICTURE+")
-        db.rawQuery("SELECT "
-                +NEWDB_TABLE+"."+COL_PRIMARY+","
-                +NEWDB_TABLE+"."+COL_NAME+","
-                +NEWDB_TABLE+"."+COL_PICTURE
-                +" FROM "+DB_TABLE+" LEFT OUTER JOIN "+NEWDB_TABLE + " ON "
-                +NEWDB_TABLE+"."+COL_PRIMARY +"="+DB_TABLE+"."+COL_PRIMARY+";",null);
+        db.execSQL("INSERT OR IGNORE INTO "+NEWDB_TABLE + " SELECT * FROM "
+                +DB_TABLE+";");
     }
 
 
@@ -166,10 +162,9 @@ public class DBAdapter{
                    + ");";
             db.execSQL(createTbl);
             String create = "CREATE TABLE " + NEWDB_TABLE +  " ("
-                    + COL_PRIMARY + " INTEGER PRIMARY AUTOINCREMENT,"
+                    + COL_PRIMARY + " INTEGER UNIQUE,"
                     + COL_NAME + " TEXT NOT NULL,"
-                    + COL_PICTURE + " INTEGER NOT NULL"
-                    + ");";
+                    + COL_PICTURE + " INTEGER NOT NULL );";
             db.execSQL(create);
 
         }

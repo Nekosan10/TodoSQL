@@ -1,5 +1,6 @@
 package team_percussion.todosql;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.media.Image;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +18,11 @@ import java.util.List;
  * Created by m2270073 on 2018/02/01.
  */
 
-public class Confirmation extends AppCompatActivity {
+public class Confirmation extends Activity {
     private ImageView TodoImage;
     private ImageView Ok;
     private ImageView No;
+    private TextView ToDo;
     private DBAdapter dbAdapter;
     private SelectSheetListView.MyBaseAdapter myBaseAdapter;
     private List<MyListItem> DoList;
@@ -41,14 +44,18 @@ public class Confirmation extends AppCompatActivity {
         DoList = new ArrayList<>();
         loadMyList();
 
-        // ListViewの結び付け
+        // 部品の結び付け
         TodoImage = findViewById(R.id.imageVieTodo);
         Ok = findViewById(R.id.imageViewOk);
         No = findViewById(R.id.imageViewDoNo);
+        ToDo = findViewById(R.id.textViewToDo);
 
-        myListItem = DoList.get(listId);
-        int picId = myListItem.getPrimary();
+        myListItem = DoList.get(0);
+        int picId = myListItem.getPictureid();
         TodoImage.setImageResource(picId);
+        String todoname = myListItem.getName();
+        ToDo.setText(todoname);
+
 
         Ok.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -56,49 +63,39 @@ public class Confirmation extends AppCompatActivity {
                 dbAdapter.openDB();     // DBの読み込み(読み書きの方)
                 dbAdapter.selectDeletedoTable(String.valueOf(listId));     // DBから取得したIDが入っているデータを削除する
                 dbAdapter.closeDB();    // DBを閉じる
-                loadMyList();
                 setResult(RESULT_OK, intent);
                 finish();
             }
         });
 
-    }
-    private void SetImage(){
+        No.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                finish();
+            }
+        });
 
     }
+
     private void loadMyList() {
-
         //ArrayAdapterに対してListViewのリスト(items)の更新
         DoList.clear();
-
         dbAdapter.openDB();     // DBの読み込み(読み書きの方)
-
         // DBのデータを取得
         String[] name={Integer.toString(listId)};
-        Cursor c = dbAdapter.selectgetDoTable(null,"_primary",name);
+        Cursor c = dbAdapter.selectgetDoTable(name);
+        c.moveToFirst();
+                do {
+                    myListItem = new MyListItem(
+                            c.getInt(0),
+                            c.getString(1),
+                            c.getInt(2));
 
-        if (c.moveToFirst()) {
-            do {
-                // MyListItemのコンストラクタ呼び出し(myListItemのオブジェクト生成)
-                myListItem = new MyListItem(
-                        c.getInt(0),
-                        c.getString(1),
-                        c.getInt(2));
-
-
-                Log.d("取得したCursor(優先度):", String.valueOf(c.getInt(0)));
-                Log.d("取得したCursor(やること名):", c.getString(1));
-                Log.d("取得したCursor(画像ID):", String.valueOf(c.getInt(2)));
-
-
-                DoList.add(myListItem);          // 取得した要素をDoListに追加
-
-            } while (c.moveToNext());
-        }
+                    Log.d("取得したCursor(優先度):", String.valueOf(c.getInt(0)));
+                    Log.d("取得したCursor(やること名):", c.getString(1));
+                    Log.d("取得したCursor(画像ID):", String.valueOf(c.getInt(2)));
+                    DoList.add(myListItem);          // 取得した要素をDoListに追加
+                }while(c.moveToNext());
         c.close();
         dbAdapter.closeDB();             // DBを閉じる
     }
-
-
-
 }

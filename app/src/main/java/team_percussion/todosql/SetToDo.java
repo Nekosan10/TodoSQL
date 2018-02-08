@@ -4,10 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -16,11 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import java.util.ArrayList;
 
@@ -29,7 +23,7 @@ import java.util.ArrayList;
  * メイン画面に関連するクラス
  * MainActivity
  */
-public class SetToDo extends AppCompatActivity {
+public class SetToDo extends Activity {
 
     private EditText mEditText01Name;               // やること名
     private ImageView mImageView01Picture;          // 画像
@@ -55,23 +49,21 @@ public class SetToDo extends AppCompatActivity {
         findViews();        // 各部品の結びつけ処理
         DBA();
 
-        mButton01AllDelete.setOnClickListener(new View.OnClickListener(){
+        mButton01AllDelete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                if(!items.isEmpty()){
+            public void onClick(View v) {
+                if (!items.isEmpty()) {
                     dbAdapter.openDB();
                     dbAdapter.allDelete();
                     dbAdapter.closeDB();
                     adapter.clear();
                     adapter.addAll(items);
                     adapter.notifyDataSetChanged();
-                }else {
-                    Toast.makeText(SetToDo.this,"登録されているデータがありません",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(SetToDo.this, "登録されているデータがありません", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
-
 
 
         init();             //初期値設定
@@ -81,8 +73,8 @@ public class SetToDo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 intent = new Intent(SetToDo.this, ResourceAllView.class);
-                int requestCode =1001;
-                startActivityForResult(intent,requestCode);
+                int requestCode = 1001;
+                startActivityForResult(intent, requestCode);
             }
         });
 
@@ -112,34 +104,32 @@ public class SetToDo extends AppCompatActivity {
                 dbAdapter.saveDoTable();
                 dbAdapter.closeDB();
                 intent = new Intent(SetToDo.this, SelectSheetListView.class);
-                    startActivity(intent);      // 各画面へ遷移
-             }
+                startActivity(intent);      // 各画面へ遷移
+            }
         });
     }
 
-    private void DBA(){
+    private void DBA() {
         dbAdapter = new DBAdapter(this);
         dbAdapter.openDB();
-        items=new ArrayList<>();
+        items = new ArrayList<>();
 
         String[] columns = {DBAdapter.COL_NAME};
-        Cursor c =dbAdapter.getDB(columns);
+        Cursor c = dbAdapter.getDB(columns);
 
-        if(c.moveToFirst()){
-            do{
+        if (c.moveToFirst()) {
+            do {
                 items.add(c.getString(0));
-                Log.d("取得したCursor",c.getString(0));
-            }while(c.moveToNext());
+                Log.d("取得したCursor", c.getString(0));
+            } while (c.moveToNext());
         }
         c.close();
         dbAdapter.closeDB();
         adapter = new ArrayAdapter<>
-                (this,android.R.layout.simple_list_item_1,items);
+                (this, android.R.layout.simple_list_item_1, items);
         mListView01.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
-
-
 
 
     /**
@@ -206,7 +196,6 @@ public class SetToDo extends AppCompatActivity {
             }
 
 
-
             Toast.makeText(SetToDo.this, "※の箇所を入力して下さい。", Toast.LENGTH_SHORT).show();
 
         } else {        // EditTextが全て入力されている場合
@@ -214,9 +203,9 @@ public class SetToDo extends AppCompatActivity {
             // 入力された単価と個数は文字列からint型へ変換
             int intPrimary = Integer.parseInt(strPrimary);
 
-            Log.d("保存した優先度",String.valueOf(intPrimary));
-            Log.d("保存したやること名",String.valueOf(strName));
-            Log.d("保存した画像ID",String.valueOf(PicId));
+            Log.d("保存した優先度", String.valueOf(intPrimary));
+            Log.d("保存したやること名", String.valueOf(strName));
+            Log.d("保存した画像ID", String.valueOf(PicId));
 
 
             // DBへの登録処理
@@ -231,7 +220,7 @@ public class SetToDo extends AppCompatActivity {
     }
 
     //画像選択から戻ってきたとき
-    public void onActivityResult(int requestCode,int resultCode,Intent intent) {
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == 1001) {
             // 返却結果ステータスとの比較
             if (resultCode == Activity.RESULT_OK) {
@@ -240,9 +229,6 @@ public class SetToDo extends AppCompatActivity {
             }
         }
     }
-
-
-
 
 
 }

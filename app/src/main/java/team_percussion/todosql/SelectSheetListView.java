@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SelectSheetListView extends AppCompatActivity {
+public class SelectSheetListView extends Activity {
 
     private DBAdapter dbAdapter;
     private MyBaseAdapter myBaseAdapter;
@@ -34,6 +34,7 @@ public class SelectSheetListView extends AppCompatActivity {
     private GridView mListView03;
     protected MyListItem myListItem;
     private Intent intent;
+    private int listId;
 
     // 参照するDBのカラム：優先度,やること,リソースIDの全部なのでnullを指定
     private String[] columns = null;
@@ -64,10 +65,10 @@ public class SelectSheetListView extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent,View view,final int position,long id) {
 
-                intent = new Intent(SelectSheetListView.this, Confirmation.class);
+                intent = new Intent(SelectSheetListView.this,Confirmation.class);
                 int requestCode = 1002;
                 myListItem = items.get(position);
-                int listId = myListItem.getPrimary();
+                listId = myListItem.getPrimary();
                 intent.putExtra("ToDoPrimary",listId );
                 startActivityForResult(intent, requestCode);
             }
@@ -90,7 +91,7 @@ public class SelectSheetListView extends AppCompatActivity {
 
                         // IDを取得する
                         myListItem = items.get(position);
-                        int listId = myListItem.getPrimary();
+                        listId = myListItem.getPrimary();
 
                         dbAdapter.openDB();     // DBの読み込み(読み書きの方)
                         dbAdapter.selectDeletedoTable(String.valueOf(listId));     // DBから取得したIDが入っているデータを削除する
