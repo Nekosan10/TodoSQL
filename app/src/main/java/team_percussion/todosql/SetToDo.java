@@ -22,6 +22,7 @@ import java.util.ArrayList;
 /**
  * メイン画面に関連するクラス
  * MainActivity
+ * にゃーん
  */
 public class SetToDo extends Activity {
 
